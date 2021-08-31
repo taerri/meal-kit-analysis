@@ -33,7 +33,7 @@ for x in tqdm(content):
 ```
 
 #### 2-2 단어 교체
-```
+```python
 def change(text):
     text=','.join(text)
     text_list=text.split(',')
