@@ -18,6 +18,11 @@ BigKinds 뉴스 데이터
 #### 1-1 빅카인즈 크롤링
 ![image](https://user-images.githubusercontent.com/88631078/131560714-031871e3-cecb-47f7-8082-828f39c0dcb7.png)
 
+크롤링 결과를 병합한 후 중복되는 기사를 삭제해주었다.
+```python
+df_drop=df.drop_duplicates(['Date','Title','Content'], keep='first')
+```
+그 결과 5507개의 기사를 얻을 수 있었다.
 ### 2. 데이터 전처리
 Mecab을 사용하여 형태소 분리
 
@@ -83,6 +88,9 @@ for topic in topics:
 ![KakaoTalk_20210902_011546404](https://user-images.githubusercontent.com/88631078/131706978-52794de4-b79d-47d4-afa0-5d9dbf3252bd.gif)
 
 #### 3-3 토픽모델링 시각화 코드
+*conda install -c plotly plotly  콘다프롬포트에 이렇게 설치 필요      
+*주피터노트북으로 실행하면 본 화면과 다르게 보일 수 있다. 본 화면은 vscode로 실행한 결과
+
 ```python
 fig =go.Figure(go.Sunburst(
     labels=first_list + topic_1_1 + topic_2_1 + topic_3_1 + topic_4_1 + topic_5_1 + topic_6_1 + topic_7_1 + topic_8_1,
