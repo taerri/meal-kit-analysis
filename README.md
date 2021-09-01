@@ -68,10 +68,21 @@ print("불용어 개수 :",len(stopword))
 ### 3. 토픽모델링
 
 #### 3-1 LDA 코드
+```python
+dictionary = corpora.Dictionary(model_all.corpus)
+corpus = [dictionary.doc2bow(text) for text in model_all.corpus]
+NUM_TOPICS = 3
+num_words = 30
+ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics = NUM_TOPICS, id2word=dictionary, passes=15)
+topics = ldamodel.print_topics(num_words=num_words)
+for topic in topics:
+    print(topic)
+```
 
 #### 3-2 LDA 시각화
+![image](https://user-images.githubusercontent.com/88631078/131688716-5b93f84a-e472-4e2d-a67a-513e1c7feaef.png)
 
-#### 3-3 토픽모델링 시각화
+#### 3-3 토픽모델링 시각화 코드
 ```python
 fig =go.Figure(go.Sunburst(
     labels=first_list + topic_1_1 + topic_2_1 + topic_3_1 + topic_4_1 + topic_5_1 + topic_6_1 + topic_7_1 + topic_8_1,
@@ -85,6 +96,9 @@ fig.update_traces(textfont_size=20)
 fig.update_layout(margin = dict(t=0, l=0, r=0, b=0))
 fig.show()
 ```
+
+#### 3-4 토픽모델링 시각화
+![image](https://user-images.githubusercontent.com/88631078/131688973-6d418982-28dd-4f50-93a6-4b4e54245789.png)
 
 ### 4. 네트워크 분석
 
