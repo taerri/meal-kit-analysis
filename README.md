@@ -23,6 +23,12 @@ BigKinds 뉴스 데이터
 df_drop=df.drop_duplicates(['Date','Title','Content'], keep='first')
 ```
 그 결과 5507개의 기사를 얻을 수 있었다.
+```python
+drop_row = content.dropna(axis=0)
+df=pd.DataFrame([drop_row])
+df= df.transpose()
+```
+또한, 내용이 없는 기사가 있어 삭제해 주었고 5506개의 기사를 얻었다.
 ### 2. 데이터 전처리
 Mecab을 사용하여 형태소 분리
 
