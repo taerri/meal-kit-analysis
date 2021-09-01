@@ -80,7 +80,7 @@ for topic in topics:
 ```
 
 #### 3-2 LDA 시각화
-![image](https://user-images.githubusercontent.com/88631078/131688716-5b93f84a-e472-4e2d-a67a-513e1c7feaef.png)
+https://user-images.githubusercontent.com/88631078/131691281-0bbd1f8d-2e4a-47b7-9e61-f18974504d59.mp4
 
 #### 3-3 토픽모델링 시각화 코드
 ```python
