@@ -30,20 +30,33 @@ df= df.transpose()
 ```
 또한, 내용이 없는 기사가 있어 삭제해 주었고 5506개의 기사를 얻었다.
 ### 2. 데이터 전처리
-Mecab을 사용하여 형태소 분리
+Kkma을 사용하여 형태소 분리
 
 #### 2-1 명사 추출
-```
-from tqdm import tqdm
+```python
 nouns = [] 
 for x in tqdm(content):
     try:
-        nouns.append(mecab.nouns(x))
+        nouns.append(kkma.nouns(x))
     except:
         nouns.append(["None"])
 ```
 
-#### 2-2 단어 교체
+#### 2-2 사전 추가
+명사를 추출한 결과, 밀키트가 '밀','밀키트','키트' 으로 분리가 되었고 여러 명사들이 이러한 방식으로 명사 추출이 되었다.
+우리는 고유명사나 Kkma에 없는 단어들을 추가하였다.
+```python
+twitter.add_dictionary('밀키트', 'Noun')
+twitter.add_dictionary('코로나19', 'Noun')
+twitter.add_dictionary('간편식', 'Noun')
+twitter.add_dictionary('프레시지', 'Noun')
+twitter.add_dictionary('식재료', 'Noun')
+```
+위 단어를 비롯한 우리가 분석하는데 중요한 단어들을 사전에 추가해주었다.
+
+#### 2-3 단어 교체
+인공지능은 AI와 의미적으로 같기 때문에 인공지능을 AI로 바꾸어 주었다.
+
 ```python
 def change(text):
     text=','.join(text)
@@ -58,8 +71,25 @@ def change(text):
     result=','.join(result)
     return result
 ```
+#### 2-4 한글자 제거
+년, 월 과 같은 한글자는 분석하는데 필요가 없으므로 제거해주었다.
 
-#### 2-3 불용어 처리
+```python
+def remove(text):
+    text_list=text.split(',')
+    result=[]
+    for n in text_list:
+        if len(n)>1:
+            result.append(n)
+    result=','.join(result)
+    return result
+
+corpus['ContentNoun']=corpus['ContentNoun'].map(lambda x: remove(x))
+```
+
+#### 2-5 불용어 처리
+100%, 3개월 과 같은 필요없는 단어들을 불용어 처리하여 제거해주었다.
+
 ```python
 stopword1 = pd.read_csv("./불용어 처리.txt",header=None,sep="\t")
 stopword1 = list(stopword1[0])
@@ -72,7 +102,7 @@ stopword = [x for x in stopword if not re.compile("[0-9]+").search(str(x))]
 print("불용어 개수 :",len(stopword))
 ```
 
-#### 2-4 전처리 결과값
+#### 2-6 전처리 결과값
 ![image](https://user-images.githubusercontent.com/88631078/131561534-22cbbc54-4c63-4a96-b4e8-eebeb91106a8.png)
 
 
@@ -94,8 +124,8 @@ for topic in topics:
 ![KakaoTalk_20210902_011546404](https://user-images.githubusercontent.com/88631078/131706978-52794de4-b79d-47d4-afa0-5d9dbf3252bd.gif)
 
 #### 3-3 토픽모델링 시각화 코드
-*conda install -c plotly plotly  콘다프롬포트에 이렇게 설치 필요      
-*주피터노트북으로 실행하면 본 화면과 다르게 보일 수 있다. 본 화면은 vscode로 실행한 결과
+*conda install -c plotly plotly  콘다프롬포트에 이렇게 설치 필요하다     
+*주피터노트북으로 실행하면 본 화면과 다르게 보일 수 있다. 본 화면은 vscode로 실행한 결과이다.
 
 ```python
 fig =go.Figure(go.Sunburst(
