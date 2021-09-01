@@ -18,17 +18,19 @@ BigKinds 뉴스 데이터
 #### 1-1 빅카인즈 크롤링
 ![image](https://user-images.githubusercontent.com/88631078/131560714-031871e3-cecb-47f7-8082-828f39c0dcb7.png)
 
-크롤링 결과를 병합한 후 중복되는 기사를 삭제해주었다.
+크롤링 결과 병합 후 중복되는 기사를 삭제해 5507개의 뉴스 기사 데이터를 얻음
 ```python
 df_drop=df.drop_duplicates(['Date','Title','Content'], keep='first')
 ```
-그 결과 5507개의 기사를 얻을 수 있었다.
+
+
+또한, 본문 내용이 없는 기사 확인 및 삭제    
+최종적으로 5506개의 뉴스 기사 데이터를 얻음
 ```python
 drop_row = content.dropna(axis=0)
 df=pd.DataFrame([drop_row])
 df= df.transpose()
 ```
-또한, 내용이 없는 기사가 있어 삭제해 주었고 5506개의 기사를 얻었다.
 ### 2. 데이터 전처리
 Kkma을 사용하여 형태소 분리
 
@@ -43,8 +45,8 @@ for x in tqdm(content):
 ```
 
 #### 2-2 사전 추가
-명사를 추출한 결과, 밀키트가 '밀','밀키트','키트' 으로 분리가 되었고 여러 명사들이 이러한 방식으로 명사 추출이 되었다.
-우리는 고유명사나 Kkma에 없는 단어들을 추가하였다.
+명사 추출 결과를 보면, 밀키트 등 여러 고유명사들이 '밀', '밀키트', '키트' 처럼 분리되어 추출    
+--> 고유명사나 Kkma에 없는 단어들을 사전에 추가
 ```python
 twitter.add_dictionary('밀키트', 'Noun')
 twitter.add_dictionary('코로나19', 'Noun')
@@ -52,10 +54,9 @@ twitter.add_dictionary('간편식', 'Noun')
 twitter.add_dictionary('프레시지', 'Noun')
 twitter.add_dictionary('식재료', 'Noun')
 ```
-위 단어를 비롯한 우리가 분석하는데 중요한 단어들을 사전에 추가해주었다.
 
 #### 2-3 단어 교체
-인공지능은 AI와 의미적으로 같기 때문에 인공지능을 AI로 바꾸어 주었다.
+의미적으로 같은 단어를 한 단어로 바꿔줌
 
 ```python
 def change(text):
@@ -72,7 +73,7 @@ def change(text):
     return result
 ```
 #### 2-4 한글자 제거
-년, 월 과 같은 한글자는 분석하는데 필요가 없으므로 제거해주었다.
+'년', '월' 등 분석 시 불필요한 한글자 단어 제거
 
 ```python
 def remove(text):
@@ -88,7 +89,7 @@ corpus['ContentNoun']=corpus['ContentNoun'].map(lambda x: remove(x))
 ```
 
 #### 2-5 불용어 처리
-100%, 3개월 과 같은 필요없는 단어들을 불용어 처리하여 제거해주었다.
+'100%', '3개월' 등 불필요한 단어의 불용어 처리
 
 ```python
 stopword1 = pd.read_csv("./불용어 처리.txt",header=None,sep="\t")
@@ -103,7 +104,7 @@ print("불용어 개수 :",len(stopword))
 ```
 
 #### 2-6 전처리 결과값
-![image](https://user-images.githubusercontent.com/88631078/131561534-22cbbc54-4c63-4a96-b4e8-eebeb91106a8.png)
+![image](https://user-images.githubusercontent.com/88631078/131730865-76416561-1735-493d-bd98-23ed7f8f84bf.png)
 
 
 ### 3. 토픽모델링
