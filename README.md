@@ -80,7 +80,7 @@ for topic in topics:
 ```
 
 #### 3-2 LDA 시각화
-![Uploading KakaoTalk_20210902_011546404.gif…]()
+![KakaoTalk_20210902_011546404](https://user-images.githubusercontent.com/88631078/131706978-52794de4-b79d-47d4-afa0-5d9dbf3252bd.gif)
 
 #### 3-3 토픽모델링 시각화 코드
 ```python
