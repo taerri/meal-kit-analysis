@@ -16,6 +16,14 @@ BigKinds 뉴스 데이터
 ### 1. 데이터 수집
 
 #### 1-1 빅카인즈 크롤링
+- selenium 설치     
+- 자신의 chrome 버전 확인     
+- 버전에 맞는 chromedriver 다운     
+https://sites.google.com/a/chromium.org/chromedriver/downloads     
+- window - c:/chromedriver로 이동     
+  mac -  /Users/romeoh/download로 이동     
+
+#### 1-2 크롤링 결과 
 ![image](https://user-images.githubusercontent.com/88631078/131560714-031871e3-cecb-47f7-8082-828f39c0dcb7.png)
 
 크롤링 결과 병합 후 중복되는 기사를 삭제해 5507개의 뉴스 기사 데이터를 얻음
