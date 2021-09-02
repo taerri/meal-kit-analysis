@@ -225,3 +225,9 @@ N-gram 분석 후 상위 250여개 데이터(n-gram_분석결과.csv)를 살펴 
 ![image](https://user-images.githubusercontent.com/88631078/131563193-9cdfaf73-472d-444b-880e-ce68f75f1ec5.png)
 
 페이지랭크 그래프가 랜덤으로 추출되니 마음에 드는 모양이 나올 때까지 반복 실행
+
+## Authors
+
+* **TaeRi Kim** - [Github](https://github.com/taerri)
+* **JinSol Lim**
+* **JiIn Bang**
